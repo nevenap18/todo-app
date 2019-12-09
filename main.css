@@ -62,7 +62,7 @@ ul {
     width:85%;
 }
 
-li{
+li {
     border-bottom: 1px solid white;
     padding:10px;
     list-style-type: none;
@@ -73,8 +73,8 @@ li{
 }
 
 .checkbox {
-    width: 1.4em;
-    height: 1.4em;
+    width: 20px;
+    height: 20px;
     color: white;
     border-radius: 50%;
     border: 2px solid lightgrey;
@@ -83,7 +83,9 @@ li{
     cursor: pointer;
 }
 
-.checkbox:checked {
+
+
+.checked {
     border: 2px solid lightgray;
     background-color:rgb(123, 123, 168);
     box-shadow:
@@ -91,8 +93,7 @@ li{
 }
 
 .checkbox:hover {
-    width: 1.5em;
-    height: 1.5em;
+    border: 2px solid rgb(150, 150, 179);
 }
 
 .task {
@@ -102,22 +103,25 @@ li{
     
 }
 
-.delete-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-.delete-button:focus {
-    outline: none;
+.crossed {
+    text-decoration: line-through;
+    color: rgb(177, 177, 177);
 }
 
 .icon-style {
     color: rgb(123, 123, 168);
+    cursor: pointer;
+    visibility: hidden;
 }
 .icon-style:hover {
     color: rgb(150, 30, 30);
     
 }
+
+li:hover .icon-style{
+    visibility: visible;
+}
+
 ::-webkit-scrollbar-track
 {
 	border-radius: 10px;
