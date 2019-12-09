@@ -1,52 +1,56 @@
 
-let addButton = document.getElementById("add");
-addButton.addEventListener( "click" , newItem); 
+window.addEventListener('load', initialization);
 
-let input = document.getElementById("taskInput");
-input.addEventListener("keypress", function(event) {
+function initialization(){
 
-    let key = event.keyCode;
-
-    if (key === 13) {
-        newItem();
-    }
-});
-
-let ul = document.getElementById('list');
-
-
-// ul.addEventListener("click", function(event){
-//     let target = event.target;
+    const addButton = document.getElementById("add");
+    addButton.addEventListener( "click" , newItem); 
     
-
-//     if (target.type == 'checkbox') {
-//         toggleDone(target);
-//         return;
-//     }
-// });
-
-function toggleDone(task){                              
-    task.classList.toggle("checked");
-    task.nextSibling.classList.toggle("crossed");
+    const input = document.getElementById("taskInput");
+    input.addEventListener("keypress", function(event) {
+    
+        let key = event.keyCode;
+    
+        if (key === 13) {
+            newItem();
+        }
+    });
+    
+    const ul = document.getElementById('list');
+    
+    ul.addEventListener("click", function(event){
+        let target = event.target;
+    
+        if (target.type == 'checkbox') {
+            toggleDone(target);
+            return;
+        }
+    
+        if (target.tagName === 'I') {
+            
+            deleteItem(target);                    //DELETE f-ja za niz/local storage
+            return;
+        }
+    }); 
 }
 
-
-ul.addEventListener("click", function(event){
-    let target = event.target;
-
-    if (target.type == 'checkbox') {
-        toggleDone(target);
-        return;
+function toggleDone(task){                              
+        task.classList.toggle("checked");
+        task.nextSibling.classList.toggle("crossed");
+        updateList(task);
     }
 
-    if (target.tagName === 'I') {
-        
-        deleteItem(target);                    //DELETE f-ja za niz/local storage
-        return;
-    }
-});
+function updateList(task){                                           
+    
+    let id = getId(task);
 
-function getTask(){
+    let arrayItem = array.find(item => item.id == id);
+    arrayItem.done = !arrayItem.done ? true : false;
+
+    //console.table(array);                                             // ++++ UPDATE LOCALSTORAGE
+}
+
+function getTask(){                                                   //REQUIRED PRE ADD
     const task = document.getElementById("taskInput").value;
     return task;
 
@@ -70,16 +74,18 @@ if (array.length != 0){
 
     const task = getTask();
 
+    if(task == ""){                                  //REQUIRED PRE ADD
+        alert("Please enter a task");
+        return;
+    } 
+
     let item = new Item(id, task, false);
 
-    addToList(item);                     //PUSH u niz
-    //saveToStorage(item); // treba f-ja za prevodjenje u JSON koja se poziva u f-ji saveToStorage
-    let input = document.getElementById("taskInput");
+    addToList(item);  
+    saveToStorage(item); // treba f-ja za prevodjenje u JSON koja se poziva u f-ji saveToStorage
+    const input = document.getElementById("taskInput");
     input.value= "";
 }
-
-
-
 
 function newRow(item){
     
@@ -116,7 +122,7 @@ function newRow(item){
 }
 
 function addToList(item){
-    let ul = document.getElementById("list");
+    const ul = document.getElementById("list");
     let li = newRow(item);
     ul.appendChild(li);
     li.scrollIntoView();
@@ -127,11 +133,9 @@ function addToList(item){
 
 //CHECK:
 
-
 function deleteItem (target){
-    let item = target.parentNode;
-    let checkbox = item.firstChild;
-    let id = checkbox.id;
+    
+    let id = getId(target);
     deleteFromArray(id);
     target.parentNode.remove();
 }
@@ -144,3 +148,30 @@ function deleteFromArray (id){
         }
     }
 }
+
+function getId(target){
+    let li = target.parentNode;
+    let checkbox = li.firstChild;
+    let id = checkbox.id;
+
+    return id;
+}
+
+function saveToStorage(item) {
+
+    
+
+    
+    // var key = "" + item.id;
+    // var storageItem = JSON.stringify(item);
+    // localStorage.setItem(key, storageItem);
+
+    // for (var key in localStorage) {
+    //     console.log(key + ':' + localStorage[key]);
+    //   }
+
+
+
+    //localStorage.clear();
+}
+
