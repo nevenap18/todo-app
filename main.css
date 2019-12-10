@@ -108,17 +108,17 @@ li {
     color: rgb(177, 177, 177);
 }
 
-.icon-style {
+.delete-button {
     color: rgb(123, 123, 168);
     cursor: pointer;
     visibility: hidden;
 }
-.icon-style:hover {
+.delete-button:hover {
     color: rgb(150, 30, 30);
     
 }
 
-li:hover .icon-style{
+li:hover .delete-button{
     visibility: visible;
 }
 
