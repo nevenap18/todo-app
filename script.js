@@ -2,6 +2,8 @@ const addButton = document.getElementById('add');
 const input = document.getElementById('taskInput');
 const ul = document.getElementById('list'); // koristiti vec napravbljen selekor
 
+// svi query selectori na vrh, kod u sredinu, a event listeneri na kraj jer je lepse
+
 let array = JSON.parse(localStorage.getItem('todo'));
 
 if (array == undefined) {
